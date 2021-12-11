@@ -30,7 +30,7 @@ namespace Ticari_Otomasyon
         void Ajanda()
         {
             DataTable dataTable = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter("Select top 10 TARIH,SAAT,BASLIK from TBL_NOTLAR order by ID desc", sqlBaglantisi.Baglanti());
+            SqlDataAdapter adapter = new SqlDataAdapter("Select top 15 TARIH,SAAT,BASLIK from TBL_NOTLAR order by ID desc", sqlBaglantisi.Baglanti());
             adapter.Fill(dataTable);
             gridControlAjanda.DataSource = dataTable;
         }
