@@ -152,7 +152,7 @@ namespace Ticari_Otomasyon
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "FrmMail";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmMail";
+            this.Text = "MAİL ";
             this.Load += new System.EventHandler(this.FrmMail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txtMailAdresi.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtKonu.Properties)).EndInit();

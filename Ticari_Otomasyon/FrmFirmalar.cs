@@ -149,13 +149,20 @@ namespace Ticari_Otomasyon
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-            SqlCommand komut = new SqlCommand("Delete from TBL_FIRMALAR where ID=@p1", sqlBaglantisi.Baglanti());
-            komut.Parameters.AddWithValue("@p1", txtId.Text);
-            komut.ExecuteNonQuery();
-            sqlBaglantisi.Baglanti().Close();
-            ListeleFirmalar();
-            MessageBox.Show("Firma listeden silindi","Bilgi",MessageBoxButtons.OK,MessageBoxIcon.Hand);
-            Temizle();
+            try
+            {
+                SqlCommand komut = new SqlCommand("Delete from TBL_FIRMALAR where ID=@p1", sqlBaglantisi.Baglanti());
+                komut.Parameters.AddWithValue("@p1", txtId.Text);
+                komut.ExecuteNonQuery();
+                sqlBaglantisi.Baglanti().Close();
+                ListeleFirmalar();
+                MessageBox.Show("Firma listeden silindi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                Temizle();
+            }
+            catch
+            {
+            }
+            
         }
 
         private void btnGuncelle_Click(object sender, EventArgs e)

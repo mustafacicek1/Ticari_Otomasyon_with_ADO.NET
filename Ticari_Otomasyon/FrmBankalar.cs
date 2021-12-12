@@ -127,13 +127,20 @@ namespace Ticari_Otomasyon
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-            SqlCommand komut = new SqlCommand("Delete from TBL_BANKALAR where ID=@p1", sqlBaglantisi.Baglanti());
-            komut.Parameters.AddWithValue("@p1", txtId.Text);
-            komut.ExecuteNonQuery();
-            sqlBaglantisi.Baglanti().Close();
-            MessageBox.Show("Banka bilgisi sistemden silindi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            ListeleBankalar();
-            Temizle();
+            try
+            {
+                SqlCommand komut = new SqlCommand("Delete from TBL_BANKALAR where ID=@p1", sqlBaglantisi.Baglanti());
+                komut.Parameters.AddWithValue("@p1", txtId.Text);
+                komut.ExecuteNonQuery();
+                sqlBaglantisi.Baglanti().Close();
+                MessageBox.Show("Banka bilgisi sistemden silindi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                ListeleBankalar();
+                Temizle();
+            }
+            catch 
+            {
+            }
+           
 
         }
 

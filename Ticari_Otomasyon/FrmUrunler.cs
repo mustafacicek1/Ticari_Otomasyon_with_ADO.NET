@@ -67,13 +67,20 @@ namespace Ticari_Otomasyon
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-            SqlCommand komutSil = new SqlCommand("Delete from TBL_URUNLER where ID=@p1", sqlBaglantisi.Baglanti());
-            komutSil.Parameters.AddWithValue("@p1", txtId.Text);
-            komutSil.ExecuteNonQuery();
-            sqlBaglantisi.Baglanti();
-            MessageBox.Show("Ürün silindi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            ListeleUrunler();
-            Temizle();
+            try
+            {
+                SqlCommand komutSil = new SqlCommand("Delete from TBL_URUNLER where ID=@p1", sqlBaglantisi.Baglanti());
+                komutSil.Parameters.AddWithValue("@p1", txtId.Text);
+                komutSil.ExecuteNonQuery();
+                sqlBaglantisi.Baglanti();
+                MessageBox.Show("Ürün silindi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ListeleUrunler();
+                Temizle();
+            }
+            catch
+            {
+            }
+
         }
 
         private void gridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)

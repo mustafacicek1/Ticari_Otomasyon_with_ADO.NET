@@ -94,16 +94,23 @@ namespace Ticari_Otomasyon
         }
         private void btnSil_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Gerçekten silmek istiyor musunuz?", "Onay Verin", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            try
             {
-                SqlCommand komut = new SqlCommand("Delete from TBL_MUSTERILER where ID=@p1", sqlBaglantisi.Baglanti());
-                komut.Parameters.AddWithValue("@p1", txtId.Text);
-                komut.ExecuteNonQuery();
-                sqlBaglantisi.Baglanti().Close();
-                MessageBox.Show("Müşteri silindi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                ListeleMusteriler();
-                Temizle();
+                if (MessageBox.Show("Gerçekten silmek istiyor musunuz?", "Onay Verin", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    SqlCommand komut = new SqlCommand("Delete from TBL_MUSTERILER where ID=@p1", sqlBaglantisi.Baglanti());
+                    komut.Parameters.AddWithValue("@p1", txtId.Text);
+                    komut.ExecuteNonQuery();
+                    sqlBaglantisi.Baglanti().Close();
+                    MessageBox.Show("Müşteri silindi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    ListeleMusteriler();
+                    Temizle();
+                }
             }
+            catch
+            {
+            }
+          
         }
 
         private void btnGuncelle_Click(object sender, EventArgs e)
