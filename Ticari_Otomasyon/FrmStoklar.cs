@@ -21,13 +21,13 @@ namespace Ticari_Otomasyon
         SqlBaglantisi sqlBaglantisi = new SqlBaglantisi();
         private void FrmStoklar_Load(object sender, EventArgs e)
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("Select URUNAD,Sum(ADET) as 'MIKTAR' from TBL_URUNLER group by URUNAD", sqlBaglantisi.Baglanti());
+            SqlDataAdapter adapter = new SqlDataAdapter("Select URUNAD,Sum(ADET) as 'MIKTAR' from TBL_URUNLER where DURUM=1 group by URUNAD", sqlBaglantisi.Baglanti());
             DataTable dataTable = new DataTable();
             adapter.Fill(dataTable);
             gridControl1.DataSource = dataTable;
 
             //Charta stok miktarı listeleme
-            SqlCommand komut = new SqlCommand("Select URUNAD,Sum(ADET) as 'MIKTAR' from TBL_URUNLER group by URUNAD", sqlBaglantisi.Baglanti());
+            SqlCommand komut = new SqlCommand("Select URUNAD,Sum(ADET) as 'MIKTAR' from TBL_URUNLER where DURUM=1 group by URUNAD", sqlBaglantisi.Baglanti());
             SqlDataReader reader = komut.ExecuteReader();
             while (reader.Read())
             {
@@ -36,8 +36,8 @@ namespace Ticari_Otomasyon
             sqlBaglantisi.Baglanti().Close();
             chartControl1.Series["Ürünler"].LegendTextPattern = "{A}";
 
-            //Charta sehir firma sayısı çekme
-            SqlCommand komut2 = new SqlCommand("Select IL,Count(*) from TBL_FIRMALAR Group By IL ", sqlBaglantisi.Baglanti());
+            //Charta sehir firma sayısı çekmed
+            SqlCommand komut2 = new SqlCommand("Select IL,Count(*) from TBL_FIRMALAR where DURUM=1  Group By IL ", sqlBaglantisi.Baglanti());
             SqlDataReader reader2 = komut2.ExecuteReader();
             while (reader2.Read())
             {
