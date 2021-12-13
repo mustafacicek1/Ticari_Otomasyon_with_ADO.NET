@@ -77,7 +77,7 @@ namespace Ticari_Otomasyon
             sqlBaglantisi.Baglanti().Close();
 
             //Toplam Müşteri Sayısı
-            SqlCommand komut4 = new SqlCommand("Select Count(*) from TBL_MUSTERILER", sqlBaglantisi.Baglanti());
+            SqlCommand komut4 = new SqlCommand("Select Count(*) from TBL_MUSTERILER where DURUM=1", sqlBaglantisi.Baglanti());
             SqlDataReader reader4 = komut4.ExecuteReader();
             while (reader4.Read())
             {
@@ -86,7 +86,7 @@ namespace Ticari_Otomasyon
             sqlBaglantisi.Baglanti().Close();
 
             //Toplam Firma Sayısı
-            SqlCommand komut5 = new SqlCommand("Select Count(*) from TBL_FIRMALAR", sqlBaglantisi.Baglanti());
+            SqlCommand komut5 = new SqlCommand("Select Count(*) from TBL_FIRMALAR where DURUM=1", sqlBaglantisi.Baglanti());
             SqlDataReader reader5 = komut5.ExecuteReader();
             while (reader5.Read())
             {
@@ -95,7 +95,7 @@ namespace Ticari_Otomasyon
             sqlBaglantisi.Baglanti().Close();
 
             //Toplam Firma Şehir Sayısı
-            SqlCommand komut6 = new SqlCommand("Select Count(Distinct(IL)) from TBL_FIRMALAR", sqlBaglantisi.Baglanti());
+            SqlCommand komut6 = new SqlCommand("Select Count(Distinct(IL)) from TBL_FIRMALAR where DURUM=1", sqlBaglantisi.Baglanti());
             SqlDataReader reader6 = komut6.ExecuteReader();
             while (reader6.Read())
             {
@@ -104,7 +104,7 @@ namespace Ticari_Otomasyon
             sqlBaglantisi.Baglanti().Close();
 
             //Toplam Müşteri Şehir Sayısı
-            SqlCommand komut7 = new SqlCommand("Select Count(Distinct(IL)) from TBL_MUSTERILER", sqlBaglantisi.Baglanti());
+            SqlCommand komut7 = new SqlCommand("Select Count(Distinct(IL)) from TBL_MUSTERILER where DURUM=1", sqlBaglantisi.Baglanti());
             SqlDataReader reader7 = komut7.ExecuteReader();
             while (reader7.Read())
             {
@@ -113,7 +113,7 @@ namespace Ticari_Otomasyon
             sqlBaglantisi.Baglanti().Close();
 
             //Toplam Ürün Sayısı
-            SqlCommand komut9 = new SqlCommand("Select Sum(ADET) from TBL_URUNLER", sqlBaglantisi.Baglanti());
+            SqlCommand komut9 = new SqlCommand("Select Sum(ADET) from TBL_URUNLER where DURUM=1", sqlBaglantisi.Baglanti());
             SqlDataReader reader9 = komut9.ExecuteReader();
             while (reader9.Read())
             {
