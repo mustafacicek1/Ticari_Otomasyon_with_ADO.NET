@@ -21,7 +21,7 @@ namespace Ticari_Otomasyon
         void ListeleFaturaBilgi()
         {
             DataTable dataTable = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter("Select * from TBL_FATURABILGI", sqlBaglantisi.Baglanti());
+            SqlDataAdapter adapter = new SqlDataAdapter("Select FATURABILGIID,SERI,SIRANO,TARIH,SAAT,VERGIDAIRE,ALICI,TESLIMEDEN,TESLIMALAN from TBL_FATURABILGI where DURUM=1", sqlBaglantisi.Baglanti());
             adapter.Fill(dataTable);
             gridControl1.DataSource = dataTable;
         }
@@ -224,23 +224,13 @@ namespace Ticari_Otomasyon
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SqlCommand komut = new SqlCommand("Delete from TBL_FATURABILGI where FATURABILGIID=@p1", sqlBaglantisi.Baglanti());
+                SqlCommand komut = new SqlCommand("Update TBL_FATURABILGI set DURUM=0 where FATURABILGIID=@p1", sqlBaglantisi.Baglanti());
                 komut.Parameters.AddWithValue("@p1", txtId.Text);
                 komut.ExecuteNonQuery();
                 sqlBaglantisi.Baglanti().Close();
                 MessageBox.Show("Fatura silindi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 ListeleFaturaBilgi();
                 Temizle();
-
-            }
-            catch (Exception)
-            {
-
-                MessageBox.Show("Fatura detayı olduğu için silinemiyor.Sadece boş faturalar silinebilir.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-
         }
 
         private void btnGuncelle_Click(object sender, EventArgs e)
@@ -275,7 +265,7 @@ namespace Ticari_Otomasyon
 
         private void btnBul_Click(object sender, EventArgs e)
         {
-            SqlCommand komut = new SqlCommand("Select URUNAD,SATISFIYAT from TBL_URUNLER where ID=@p1", sqlBaglantisi.Baglanti());
+            SqlCommand komut = new SqlCommand("Select URUNAD,SATISFIYAT from TBL_URUNLER where ID=@p1 and DURUM=1 ", sqlBaglantisi.Baglanti());
             komut.Parameters.AddWithValue("@p1", txtUrunId.Text);
             SqlDataReader reader = komut.ExecuteReader();
             while (reader.Read())

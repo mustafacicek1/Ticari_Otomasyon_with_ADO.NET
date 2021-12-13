@@ -21,7 +21,7 @@ namespace Ticari_Otomasyon
         void ListeleMusteriler()
         {
             DataTable dataTable = new DataTable();
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("Select * from TBL_MUSTERILER",
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("Select ID,AD,SOYAD,TELEFON,TELEFON2,TC,MAIL,IL,ILCE,ADRES,VERGIDAIRE from TBL_MUSTERILER where DURUM=1",
                 sqlBaglantisi.Baglanti());
             sqlDataAdapter.Fill(dataTable);
             gridControl1.DataSource = dataTable;
@@ -94,23 +94,16 @@ namespace Ticari_Otomasyon
         }
         private void btnSil_Click(object sender, EventArgs e)
         {
-            try
+            if (MessageBox.Show("Gerçekten silmek istiyor musunuz?", "Onay Verin", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Gerçekten silmek istiyor musunuz?", "Onay Verin", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    SqlCommand komut = new SqlCommand("Delete from TBL_MUSTERILER where ID=@p1", sqlBaglantisi.Baglanti());
-                    komut.Parameters.AddWithValue("@p1", txtId.Text);
-                    komut.ExecuteNonQuery();
-                    sqlBaglantisi.Baglanti().Close();
-                    MessageBox.Show("Müşteri silindi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    ListeleMusteriler();
-                    Temizle();
-                }
+                SqlCommand komut = new SqlCommand("Update TBL_MUSTERILER set DURUM=0 where ID=@p1", sqlBaglantisi.Baglanti());
+                komut.Parameters.AddWithValue("@p1", txtId.Text);
+                komut.ExecuteNonQuery();
+                sqlBaglantisi.Baglanti().Close();
+                MessageBox.Show("Müşteri silindi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ListeleMusteriler();
+                Temizle();
             }
-            catch
-            {
-            }
-          
         }
 
         private void btnGuncelle_Click(object sender, EventArgs e)

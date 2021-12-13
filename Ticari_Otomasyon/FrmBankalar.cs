@@ -22,7 +22,7 @@ namespace Ticari_Otomasyon
         void ListeleBankalar()
         {
             DataTable dataTable = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter("Execute BankaBilgileri", sqlBaglantisi.Baglanti());//procedure çağırma
+            SqlDataAdapter adapter = new SqlDataAdapter("Execute BankaBilgileri ", sqlBaglantisi.Baglanti());//procedure çağırma
             adapter.Fill(dataTable);
             gridControl1.DataSource = dataTable;
         }
@@ -127,21 +127,13 @@ namespace Ticari_Otomasyon
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SqlCommand komut = new SqlCommand("Delete from TBL_BANKALAR where ID=@p1", sqlBaglantisi.Baglanti());
+                SqlCommand komut = new SqlCommand("Update TBL_BANKALAR set DURUM=0 where ID=@p1", sqlBaglantisi.Baglanti());
                 komut.Parameters.AddWithValue("@p1", txtId.Text);
                 komut.ExecuteNonQuery();
                 sqlBaglantisi.Baglanti().Close();
                 MessageBox.Show("Banka bilgisi sistemden silindi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 ListeleBankalar();
                 Temizle();
-            }
-            catch 
-            {
-            }
-           
-
         }
 
         private void btnTemizle_Click(object sender, EventArgs e)

@@ -22,7 +22,7 @@ namespace Ticari_Otomasyon
         void ListelePersonel()
         {
             DataTable dataTable = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter("Select * from TBL_PERSONELLER", sqlBaglantisi.Baglanti());
+            SqlDataAdapter adapter = new SqlDataAdapter("Select ID,AD,SOYAD,TELEFON,TC,MAIL,IL,ILCE,ADRES,GOREV from TBL_PERSONELLER where DURUM=1", sqlBaglantisi.Baglanti());
             adapter.Fill(dataTable);
             gridControl1.DataSource = dataTable;
         }
@@ -115,20 +115,13 @@ namespace Ticari_Otomasyon
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SqlCommand komut = new SqlCommand("Delete from TBL_PERSONELLER where ID=@p1", sqlBaglantisi.Baglanti());
+                SqlCommand komut = new SqlCommand("Update TBL_PERSONELLER set DURUM=0 where ID=@p1", sqlBaglantisi.Baglanti());
                 komut.Parameters.AddWithValue("@p1", txtId.Text);
                 komut.ExecuteNonQuery();
                 sqlBaglantisi.Baglanti().Close();
                 MessageBox.Show("Müşteri silindi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 ListelePersonel();
                 Temizle();
-            }
-            catch
-            {
-            }
-
         }
 
         private void btnGuncelle_Click(object sender, EventArgs e)

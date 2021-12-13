@@ -21,7 +21,7 @@ namespace Ticari_Otomasyon
         void ListeleUrunler()
         {
             DataTable dataTable = new DataTable();
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("Select * from TBL_URUNLER",
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("Select ID,URUNAD,MARKA,MODEL,YIL,ADET,ALISFIYAT,SATISFIYAT,DETAY  from TBL_URUNLER where DURUM=1",
                 sqlBaglantisi.Baglanti());
             sqlDataAdapter.Fill(dataTable);
             gridControl1.DataSource = dataTable;
@@ -67,20 +67,13 @@ namespace Ticari_Otomasyon
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SqlCommand komutSil = new SqlCommand("Delete from TBL_URUNLER where ID=@p1", sqlBaglantisi.Baglanti());
-                komutSil.Parameters.AddWithValue("@p1", txtId.Text);
-                komutSil.ExecuteNonQuery();
+                SqlCommand komutGizle = new SqlCommand("Update TBL_URUNLER set DURUM=0  where ID=@p1", sqlBaglantisi.Baglanti());
+                komutGizle.Parameters.AddWithValue("@p1", txtId.Text);
+                komutGizle.ExecuteNonQuery();
                 sqlBaglantisi.Baglanti();
                 MessageBox.Show("Ürün silindi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ListeleUrunler();
                 Temizle();
-            }
-            catch
-            {
-            }
-
         }
 
         private void gridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)

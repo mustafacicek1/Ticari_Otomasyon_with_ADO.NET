@@ -21,7 +21,7 @@ namespace Ticari_Otomasyon
         void ListeleFirmalar()
         {
             DataTable dataTable = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter("Select * from TBL_FIRMALAR", sqlBaglantisi.Baglanti());
+            SqlDataAdapter adapter = new SqlDataAdapter("Select ID,AD,YETKILISTATU,YETKILIADSOYAD,YETKILITC,SEKTOR,TELEFON1,TELEFON2,TELEFON3,MAIL,FAX,IL,ILCE,VERGIDAIRE,ADRES,OZELKOD1,OZELKOD2,OZELKOD3 from TBL_FIRMALAR where DURUM=1", sqlBaglantisi.Baglanti());
             adapter.Fill(dataTable);
             gridControl1.DataSource = dataTable;
         }
@@ -149,20 +149,13 @@ namespace Ticari_Otomasyon
 
         private void btnSil_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SqlCommand komut = new SqlCommand("Delete from TBL_FIRMALAR where ID=@p1", sqlBaglantisi.Baglanti());
+                SqlCommand komut = new SqlCommand("Update TBL_FIRMALAR set DURUM=0 where ID=@p1", sqlBaglantisi.Baglanti());
                 komut.Parameters.AddWithValue("@p1", txtId.Text);
                 komut.ExecuteNonQuery();
                 sqlBaglantisi.Baglanti().Close();
                 ListeleFirmalar();
                 MessageBox.Show("Firma listeden silindi", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                Temizle();
-            }
-            catch
-            {
-            }
-            
+                Temizle();      
         }
 
         private void btnGuncelle_Click(object sender, EventArgs e)
